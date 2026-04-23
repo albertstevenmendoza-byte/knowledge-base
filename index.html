@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knowledge Base — Novus Foods Plant 1730</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body class="bg-[#0f1117] text-slate-200 overflow-hidden">
+
+<div class="flex h-screen w-screen overflow-hidden">
+
+  <!-- ── SIDEBAR ───────────────────────────────────────────── -->
+  <aside id="sidebar">
+
+    <!-- Sidebar Header -->
+    <div class="px-4 py-4 border-b border-slate-800 flex-shrink-0">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-600 to-teal-700
+          flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13
+                 C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13
+                 C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13
+                 C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-bold text-white truncate">Knowledge Base</p>
+          <p class="text-xs text-slate-600 truncate">Plant 1730 · Buena Park</p>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="relative">
+        <svg class="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search SOPs and OPLs…"
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg pl-8 pr-3 py-2
+            text-xs text-slate-300 placeholder-slate-600
+            focus:outline-none focus:border-emerald-500 transition-colors"/>
+      </div>
+    </div>
+
+    <!-- Tree Label -->
+    <div class="px-4 pt-3 pb-1 flex-shrink-0">
+      <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Departments</p>
+    </div>
+
+    <!-- Tree -->
+    <div id="tree-container">
+      <!-- Loading skeleton -->
+      <div class="px-3 space-y-1 py-2" id="tree-skeleton">
+        ${[1,2,3,4].map(()=>`
+        <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl">
+          <div class="w-8 h-8 rounded-lg bg-slate-800 animate-pulse flex-shrink-0"></div>
+          <div class="flex-1 h-3 bg-slate-800 rounded animate-pulse"></div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="mt-auto border-t border-slate-800 p-3 flex-shrink-0">
+      <div class="flex items-center gap-2 px-2 py-2 rounded-lg">
+        <div class="w-7 h-7 rounded-full bg-emerald-700/50 border border-emerald-600/40
+          flex items-center justify-center flex-shrink-0">
+          <span class="text-xs font-bold text-emerald-300" id="user-initial">—</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-xs font-semibold text-slate-300 truncate" id="user-name">Loading…</p>
+          <p class="text-xs text-slate-600 truncate" id="user-role"></p>
+        </div>
+        <div class="flex gap-1">
+          <a id="admin-link" href="admin.html" class="hidden p-1.5 rounded-lg hover:bg-slate-700
+            text-slate-500 hover:text-slate-300 transition-colors" title="Admin Panel">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066
+                   c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756
+                   2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724
+                   1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0
+                   00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0
+                   00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0
+                   001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07
+                   2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round"
+                   stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </a>
+          <button onclick="Auth.logout()" title="Sign out"
+            class="p-1.5 rounded-lg hover:bg-slate-700 text-slate-500 hover:text-slate-300 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7
+                   a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="flex-1 flex flex-col overflow-hidden">
+
+    <!-- Top Bar -->
+    <div id="topbar" class="flex-shrink-0 h-12 border-b border-slate-800 bg-slate-900/50
+      flex items-center px-6 gap-3">
+      <div class="flex items-center gap-2 text-xs text-slate-600">
+        <span>Novus Foods</span>
+        <span>·</span>
+        <span>Plant 1730</span>
+        <span>·</span>
+        <span id="breadcrumb-text">Select a document</span>
+      </div>
+      <div class="ml-auto flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+        <span class="text-xs text-slate-600">Live</span>
+      </div>
+    </div>
+
+    <!-- Document Panel -->
+    <div id="content-panel" class="flex-1 overflow-y-auto p-8">
+      <!-- Welcome state rendered by JS -->
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/rbac.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/export.js"></script>
+<script src="js/directory.js"></script>
+<script>
+(async () => {
+  // Guard: must be logged in
+  const session = await Auth.requireAuth();
+  if (!session) return;
+
+  // Load profile and set UI
+  const profile = await RBAC.getProfile(session.user.id);
+  document.getElementById('user-initial').textContent =
+    (profile?.full_name || session.user.email)[0].toUpperCase();
+  document.getElementById('user-name').textContent =
+    profile?.full_name || session.user.email;
+  document.getElementById('user-role').textContent =
+    profile?.role === 'admin' ? '⚡ Admin' : 'Viewer';
+
+  if (profile?.role === 'admin') {
+    document.getElementById('admin-link').classList.remove('hidden');
+  }
+
+  // Load tree
+  await Directory.loadAll();
+  Directory.buildTree();
+  Directory.showWelcomeState();
+
+  // Remove skeleton
+  document.getElementById('tree-skeleton')?.remove();
+
+  // Search filter
+  document.getElementById('search-input').addEventListener('input', function () {
+    const q = this.value.toLowerCase().trim();
+    document.querySelectorAll('.sop-row').forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = q === '' || text.includes(q) ? '' : 'none';
+    });
+    if (q !== '') {
+      // Auto-expand all departments when searching
+      document.querySelectorAll('.sop-container').forEach(c => c.classList.remove('hidden'));
+      document.querySelectorAll('.chevron-icon').forEach(v => v.style.transform = 'rotate(90deg)');
+    }
+  });
+
+  // Realtime: refresh tree when data changes
+  sb.channel('db-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'departments' }, () => Directory.refresh())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'sops' },        () => Directory.refresh())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'opls' },        () => Directory.refresh())
+    .subscribe();
+})();
+</script>
+</body>
+</html>
